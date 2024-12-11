@@ -1,0 +1,16 @@
+/venv/
+.env
+
+# Игнорирование директории __pycache__
+__pycache__/
+
+# Игнорирование файлов .pyc
+*.pyc
+
+# Игнорирование файлов .swp
+*.swp
+.vscode/launch.json
+
+
+certs/fullchain.pem
+certs/privkey.pem

@@ -1,0 +1,62 @@
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    command: sh -c "python main.py"
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - shared_reports:/app/parser/reports
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    env_file:
+      - .env
+    expose:
+      - "8000"
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - shared_reports:/app/bot/parser/reports
+      - static:/app/staticfiles
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn MarketPlaceCRM.wsgi:application --bind 0.0.0.0:8000"
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${DATABASE}
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./certs:/etc/nginx/certs
+      - static:/usr/share/nginx/html/static
+    depends_on:
+      - web
+    environment:
+      - LETSENCRYPT_HOST=crmmarketplacehelper.ru
+      - LETSENCRYPT_EMAIL=a.a.andreyanov@yandex.ru
+
+volumes:
+  postgres_data:
+  shared_reports:
+  static:
