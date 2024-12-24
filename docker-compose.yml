@@ -1,17 +1,4 @@
 services:
-  bot:
-    build:
-      context: .
-      dockerfile: Dockerfile.bot
-    command: sh -c "python main.py"
-    env_file:
-      - .env
-    restart: always
-    depends_on:
-      - db
-    volumes:
-      - shared_reports:/app/parser/reports
-
   web:
     build:
       context: .
@@ -24,9 +11,8 @@ services:
     depends_on:
       - db
     volumes:
-      - shared_reports:/app/bot/parser/reports
       - static:/app/staticfiles
-    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn MarketPlaceCRM.wsgi:application --bind 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn Bodyexperta.wsgi:application --bind 0.0.0.0:8000"
 
   db:
     image: postgres:14
@@ -53,7 +39,7 @@ services:
     depends_on:
       - web
     environment:
-      - LETSENCRYPT_HOST=crmmarketplacehelper.ru
+      - LETSENCRYPT_HOST=bodycosm.ru
       - LETSENCRYPT_EMAIL=a.a.andreyanov@yandex.ru
 
 volumes:

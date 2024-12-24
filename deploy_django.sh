@@ -1,19 +1,41 @@
 #!/bin/bash
 
+# Директория, где находится скрипт
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+
 # Обновление системы
 echo "Обновление системы..."
 sudo apt update && sudo apt upgrade -y
 
 # Установка необходимых пакетов
 echo "Установка необходимых пакетов..."
-sudo apt install -y python3 python3-pip python3-venv nginx certbot python3-certbot-nginx git
+sudo apt install -y python3 python3-pip python3-venv nginx postgresql postgresql-contrib libpq-dev certbot python3-certbot-nginx git
 
 # Переменные
-PROJECT_NAME="Bodyexperta"       # Название проекта
+PROJECT_NAME="Bodyexprta"       # Название проекта
 PROJECT_DIR="/var/www/$PROJECT_NAME"   # Путь к проекту
 GUNICORN_SOCKET="/run/$PROJECT_NAME.sock"
 DOMAIN="bodycosm.ru"                   # Твой домен
-EMAIL="a.a.andre9nov@gmail.com"         # Твой email для Let's Encrypt
+EMAIL="a.a.andre9nov@gmail.com"         # Email для Let's Encrypt
+ENV_FILE="$SCRIPT_DIR/.env"            # Путь к .env файлу
+DB_NAME="bodyexperta"                  # Имя базы данных
+DB_USER="fantoaimtrue"                # Имя пользователя базы данных
+DB_PASSWORD=$(openssl rand -base64 12) # Случайный пароль для базы данных
+DB_HOST="localhost"
+DB_PORT="5432"
+
+# Генерация значений для .env
+echo "Создание .env файла..."
+SECRET_KEY=$(openssl rand -base64 32)
+DEBUG="False"
+ALLOWED_HOSTS="$DOMAIN www.$DOMAIN"
+
+cat <<EOF > $ENV_FILE
+SECRET_KEY=$SECRET_KEY
+DEBUG=$DEBUG
+ALLOWED_HOSTS=$ALLOWED_HOSTS
+DATABASE_URL=postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME
+EOF
 
 # Создание папки проекта
 echo "Создание папки проекта..."
@@ -27,6 +49,15 @@ cd $PROJECT_DIR
 echo "Клонирование репозитория..."
 git clone https://github.com/your-repo-url.git .
 
+# Настройка PostgreSQL
+echo "Настройка PostgreSQL..."
+sudo -u postgres psql -c "CREATE DATABASE $DB_NAME;"
+sudo -u postgres psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
+sudo -u postgres psql -c "ALTER ROLE $DB_USER SET client_encoding TO 'utf8';"
+sudo -u postgres psql -c "ALTER ROLE $DB_USER SET default_transaction_isolation TO 'read committed';"
+sudo -u postgres psql -c "ALTER ROLE $DB_USER SET timezone TO 'UTC';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;"
+
 # Создание виртуального окружения
 echo "Создание виртуального окружения..."
 python3 -m venv venv
@@ -37,7 +68,11 @@ echo "Установка зависимостей..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# Выполнение миграций и сбор статики
+# Копирование .env в директорию проекта
+echo "Копирование .env в директорию проекта..."
+cp $ENV_FILE $PROJECT_DIR/
+
+# Применение миграций и сбор статики
 echo "Применение миграций и сбор статики..."
 python manage.py migrate
 python manage.py collectstatic --noinput
