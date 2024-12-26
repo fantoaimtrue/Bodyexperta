@@ -9,7 +9,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Установка необходимых пакетов
 echo "Установка необходимых пакетов..."
-sudo apt install -y python3 python3-pip python3-venv nginx postgresql postgresql-contrib libpq-dev certbot python3-certbot-nginx git
+sudo apt install -y python3 python3-pip python3-venv nginx postgresql postgresql-contrib libpq-dev python3-certbot-nginx git
 
 # Переменные
 PROJECT_NAME="Bodyexprta"       # Название проекта
@@ -47,7 +47,7 @@ cd $PROJECT_DIR
 
 # Клонирование репозитория (замени на свой URL)
 echo "Клонирование репозитория..."
-git clone https://github.com/your-repo-url.git .
+git clone https://github.com/fantoaimtrue/Bodyexperta.git .
 
 # Настройка PostgreSQL
 echo "Настройка PostgreSQL..."
@@ -117,6 +117,25 @@ server {
         proxy_pass http://unix:$GUNICORN_SOCKET;
     }
 }
+
+server {
+    listen 443 ssl; # Слушать на порту 443 с использованием SSL
+    server_name $DOMAIN www.$DOMAIN;
+
+    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem; # Путь к сертификату SSL
+    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem; # Путь к закрытому ключу SSL
+
+    location = /favicon.ico {
+access_log off; log_not_found off; }
+    location /static/ {
+        root $PROJECT_DIR;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:$GUNICORN_SOCKET;
+    }
+}
 EOF
 
 # Активация конфигурации Nginx
@@ -128,10 +147,35 @@ sudo systemctl restart nginx
 echo "Настройка HTTPS через Let's Encrypt..."
 sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos -m $EMAIL
 
-# Проверка автоматического обновления сертификатов
-echo "Проверка автоматического обновления сертификатов..."
-sudo certbot renew --dry-run
+# Перенаправление HTTP на HTTPS
+echo "Перенаправление HTTP на HTTPS..."
+sudo tee /etc/nginx/sites-available/$PROJECT_NAME > /dev/null <<EOF
+server {
+    listen 80;
+    server_name $DOMAIN www.$DOMAIN;
+    return 301 https://$server_name$request_uri;
+}
 
-# Финализация
-echo "Развертывание завершено!"
-echo "Проект доступен по адресу: https://$DOMAIN"
+server {
+    listen 443 ssl; # Слушать на порту 443 с использованием SSL
+    server_name $DOMAIN www.$DOMAIN;
+
+    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem; # Путь к сертификату SSL
+    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem; # Путь к закрытому ключу SSL
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root $PROJECT_DIR;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:$GUNICORN_SOCKET;
+    }
+}
+EOF
+
+# Активация конфигурации Nginx
+sudo ln -s /etc/nginx/sites-available/$PROJECT_NAME /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
