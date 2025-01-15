@@ -27,3 +27,16 @@ function createWave(event) {
 
 // Добавляем обработчик клика на кнопку
 button.addEventListener("click", createWave);
+
+
+// Находим изображение
+const heroImage = document.querySelector('.hero img')
+// Добавляем событие прокрутки
+window.addEventListener('scroll', () => {
+  // Получаем текущую позицию прокрутки
+  const scrollPosition = window.scrollY
+  // Вычисляем коэффициент масштабирования (например, от 1 до 1.5)
+  const scale = 1 + scrollPosition / 5000
+  // Применяем масштаб к изображению
+  heroImage.style.transform = `scale(${scale})`;
+});

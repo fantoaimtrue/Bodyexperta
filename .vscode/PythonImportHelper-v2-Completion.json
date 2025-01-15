@@ -167,7 +167,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-iv-bu2&)s)'\n'qns9f)w*0greqk@k3cyriua!(&i$fbnm=f&3a3zj'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = config('DEBUG')\nALLOWED_HOSTS = []\n# Application definition",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = config('DEBUG', default=False, cast=bool)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -176,7 +176,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-iv-bu2&)s)'\n'qns9f)w*0greqk@k3cyriua!(&i$fbnm=f&3a3zj'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = config('DEBUG')\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
+        "peekOfCode": "SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = config('DEBUG', default=False, cast=bool)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -185,7 +185,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "DEBUG = config('DEBUG')\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "peekOfCode": "DEBUG = config('DEBUG', default=False, cast=bool)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -194,7 +194,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'main_page',",
+        "peekOfCode": "ALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'main_page',",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -239,7 +239,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "WSGI_APPLICATION = 'Bodyexperta.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/4.2/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql',\n        'NAME': str(config('DATABASE')),\n        'USER': str(config('PGUSER')),\n        'PASSWORD': str(config('PGPASSWORD')),\n        'HOST': str(config('IP')),  # or your server's ip address",
+        "peekOfCode": "WSGI_APPLICATION = 'Bodyexperta.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/4.2/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql',\n        'NAME': config('DB_NAME'),\n        'USER': config('DB_USER'),\n        'PASSWORD': config('DB_PASSWORD'),\n        'HOST': config('DB_HOST'),  # or your server's ip address",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -248,7 +248,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql',\n        'NAME': str(config('DATABASE')),\n        'USER': str(config('PGUSER')),\n        'PASSWORD': str(config('PGPASSWORD')),\n        'HOST': str(config('IP')),  # or your server's ip address\n        'PORT': config('DB_PORT'),\n    }\n}",
+        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql',\n        'NAME': config('DB_NAME'),\n        'USER': config('DB_USER'),\n        'PASSWORD': config('DB_PASSWORD'),\n        'HOST': config('DB_HOST'),  # or your server's ip address\n        'PORT': config('DB_PORT', default='5432'),\n    }\n}",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -266,7 +266,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'ru'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.2/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных",
+        "peekOfCode": "LANGUAGE_CODE = 'ru'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\nCORS_ALLOWED_ORIGINS = [\n    'http://127.0.0.1:8000',\n    'https://bodyexp.ru',\n]",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -275,7 +275,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.2/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\nCORS_ALLOWED_ORIGINS = [\n    'http://127.0.0.1:8000',\n    'https://bodyexp.ru',\n]\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -284,7 +284,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.2/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\nCORS_ALLOWED_ORIGINS = [\n    'http://127.0.0.1:8000',\n    'https://bodyexp.ru',\n]\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -293,7 +293,16 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/4.2/howto/static-files/\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')",
+        "peekOfCode": "USE_TZ = True\nCORS_ALLOWED_ORIGINS = [\n    'http://127.0.0.1:8000',\n    'https://bodyexp.ru',\n]\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]",
+        "detail": "Bodyexperta.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CORS_ALLOWED_ORIGINS",
+        "kind": 5,
+        "importPath": "Bodyexperta.settings",
+        "description": "Bodyexperta.settings",
+        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    'http://127.0.0.1:8000',\n    'https://bodyexp.ru',\n]\nSTATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -302,7 +311,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "STATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nCSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -311,7 +320,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для собранных файлов\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nCSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -320,7 +329,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, 'static'),  # Для исходных\n]\nMEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nCSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -329,7 +338,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "MEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "MEDIA_URL = '/media/'\nMEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nCSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -338,7 +347,7 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\n# Default primary key field type\n# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nCSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -347,7 +356,25 @@
         "kind": 5,
         "importPath": "Bodyexperta.settings",
         "description": "Bodyexperta.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nCSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
+        "detail": "Bodyexperta.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CSRF_USE_SESSIONS",
+        "kind": 5,
+        "importPath": "Bodyexperta.settings",
+        "description": "Bodyexperta.settings",
+        "peekOfCode": "CSRF_USE_SESSIONS = False\nCSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
+        "detail": "Bodyexperta.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CSRF_TRUSTED_ORIGINS",
+        "kind": 5,
+        "importPath": "Bodyexperta.settings",
+        "description": "Bodyexperta.settings",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://bodyexp.ru']",
         "detail": "Bodyexperta.settings",
         "documentation": {}
     },
@@ -408,28 +435,28 @@
     {
         "label": "extract_file",
         "kind": 2,
-        "importPath": "venv.Scripts.vba_extract",
-        "description": "venv.Scripts.vba_extract",
+        "importPath": "venv.bin.vba_extract",
+        "description": "venv.bin.vba_extract",
         "peekOfCode": "def extract_file(xlsm_zip, filename):\n    # Extract a single file from an Excel xlsm macro file.\n    data = xlsm_zip.read(\"xl/\" + filename)\n    # Write the data to a local file.\n    file = open(filename, \"wb\")\n    file.write(data)\n    file.close()\n# The VBA project file and project signature file we want to extract.\nvba_filename = \"vbaProject.bin\"\nvba_signature_filename = \"vbaProjectSignature.bin\"",
-        "detail": "venv.Scripts.vba_extract",
+        "detail": "venv.bin.vba_extract",
         "documentation": {}
     },
     {
         "label": "vba_filename",
         "kind": 5,
-        "importPath": "venv.Scripts.vba_extract",
-        "description": "venv.Scripts.vba_extract",
+        "importPath": "venv.bin.vba_extract",
+        "description": "venv.bin.vba_extract",
         "peekOfCode": "vba_filename = \"vbaProject.bin\"\nvba_signature_filename = \"vbaProjectSignature.bin\"\n# Get the xlsm file name from the commandline.\nif len(sys.argv) > 1:\n    xlsm_file = sys.argv[1]\nelse:\n    print(\n        \"\\nUtility to extract a vbaProject.bin binary from an Excel 2007+ \"\n        \"xlsm macro file for insertion into an XlsxWriter file.\\n\"\n        \"If the macros are digitally signed, extracts also a vbaProjectSignature.bin \"",
-        "detail": "venv.Scripts.vba_extract",
+        "detail": "venv.bin.vba_extract",
         "documentation": {}
     },
     {
         "label": "vba_signature_filename",
         "kind": 5,
-        "importPath": "venv.Scripts.vba_extract",
-        "description": "venv.Scripts.vba_extract",
+        "importPath": "venv.bin.vba_extract",
+        "description": "venv.bin.vba_extract",
         "peekOfCode": "vba_signature_filename = \"vbaProjectSignature.bin\"\n# Get the xlsm file name from the commandline.\nif len(sys.argv) > 1:\n    xlsm_file = sys.argv[1]\nelse:\n    print(\n        \"\\nUtility to extract a vbaProject.bin binary from an Excel 2007+ \"\n        \"xlsm macro file for insertion into an XlsxWriter file.\\n\"\n        \"If the macros are digitally signed, extracts also a vbaProjectSignature.bin \"\n        \"file.\\n\"",
-        "detail": "venv.Scripts.vba_extract",
+        "detail": "venv.bin.vba_extract",
         "documentation": {}
     },
     {
