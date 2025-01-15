@@ -1,0 +1,227 @@
+/* Устанавливаем фоновый цвет для тела страницы */
+body {
+  background-color: #f8e6e2;
+  font-family: "FuturaPT", sans-serif;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Подключение шрифта FuturaPT */
+@font-face {
+  font-family: "FuturaPT";
+  src: url("/static/assets/dist/fonts/futura-pt-book.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Применение шрифта к заголовкам */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "FuturaPT", sans-serif;
+}
+
+/* Применение шрифта к другим элементам */
+p,
+a,
+li {
+  font-family: "FuturaPT", sans-serif;
+}
+
+/* Стили для лид-абзацев */
+p.lead {
+  color: #222222;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+/* Стили для главного заголовка */
+h1.display-4 {
+  color: #222222;
+  font-size: 100px;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Кнопки */
+.btn {
+  border-radius: 0 !important;
+}
+
+a.nav-link {
+  font-size: 16px;
+  color: #222222;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Навигация */
+.navbar {
+  background: linear-gradient(to right, #f8e6e2, #ecf0f1);
+}
+
+.btn-dark:hover {
+  background-color: #f8e6e2; /* Или другой темный цвет */
+  color: black; /* Цвет текста при наведении */
+  transition: all 0.3s ease;
+}
+
+/* Карта */
+.map-container {
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* Кнопка бургер */
+.custom-toggler {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: transparent;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  width: 30px;
+  height: 3px;
+  background-color: #333;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.custom-toggler .navbar-toggler-icon::before,
+.custom-toggler .navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+.custom-toggler .navbar-toggler-icon::before {
+  top: -8px;
+}
+
+.custom-toggler .navbar-toggler-icon::after {
+  top: 8px;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  background-color: transparent;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.floating-button {
+  position: fixed !important;
+  bottom: 20px;
+  right: 20px;
+  background-color: #222222;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 20px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.floating-button .floating-button-icon {
+  text-align: center;
+  z-index: 2; /* Текст поверх анимации */
+}
+
+.floating-button:hover {
+  transform: scale(1.1); /* Увеличение кнопки при наведении */
+}
+
+.floating-button:focus {
+  outline: none;
+}
+
+.floating-button-wave {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: wave 1.5s ease-out infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Пульсация при наведении */
+.floating-button:hover .floating-button-wave {
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+}
