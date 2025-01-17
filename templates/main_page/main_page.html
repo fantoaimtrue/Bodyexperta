@@ -14,9 +14,6 @@
     <div class="navbar-collapse justify-content-center collapse" id="navbarNav">
       <ul class="navbar-nav text-center">
         <li class="nav-item">
-          <a class="nav-link" href="#about">О нас</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#services">Услуги</a>
         </li>
         <li class="nav-item">
@@ -24,6 +21,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#addresses">Наш адрес</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">О нас</a>
         </li>
       </ul>
     </div>
@@ -36,9 +36,9 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="mt-5">
-          <p class="display-lead">Погрузись в мир комфорта и расслабления.</p>
+          <p id='dl-1' class="display-lead">Погрузись в мир комфорта и расслабления.</p>
           <h1 class="display-4">BODYEXPERTA</h1>
-          <p class="display-lead">КОСМЕТОЛОГИЯ, СТРАТЕГИЯ ПОХУДЕНИЯ, МАССАЖ.</p>
+          <p id='dl-2' class="display-lead">КОСМЕТОЛОГИЯ, СТРАТЕГИЯ ПОХУДЕНИЯ, МАССАЖ.</p>
           <a href="https://t.me/Bodyexperta" class="btn btn-dark btn-lg mt-3">Записаться</a>
         </div>
       </div>
@@ -57,89 +57,59 @@
 </div>
 
 <!-- Раздел Услуги -->
+ 
 <div id="services" class="container py-5">
   <h2 class="text-center mb-5">Наши Услуги</h2>
   <div class="row">
+    {% for service in services %}
     <div class="col-md-4">
       <div class="card">
         <img
-          src="https://via.placeholder.com/350"
+          src="{{ service.image.url }}"
           class="card-img-top"
-          alt="Услуга 1"
+          alt="{{ service.title }}"
         />
         <div class="card-body">
-          <h5 class="card-title">Массаж</h5>
+          <h5 class="card-title">{{ service.title }}</h5>
           <p class="card-text">
-            Расслабляющий и омолаживающий массаж для кожи вашего лица.
+            {{ service.description }}
           </p>
           <a href="#" class="btn btn-secondary">Подробнее</a>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/350"
-          class="card-img-top"
-          alt="Услуга 2"
-        />
-        <div class="card-body">
-          <h5 class="card-title">Нутрициология</h5>
-          <p class="card-text">
-            Массаж для восстановления после тренировок и физической активности.
-          </p>
-          <a href="#" class="btn btn-secondary">Подробнее</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/350"
-          class="card-img-top"
-          alt="Услуга 3"
-        />
-        <div class="card-body">
-          <h5 class="card-title">Косметология</h5>
-          <p class="card-text">
-            Массаж для снятия стресса и расслабления всего тела.
-          </p>
-          <a href="#" class="btn btn-secondary">Подробнее</a>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
+
 
 
 
 
 <!-- Раздел Галерея -->
-
 <div id='gallery' class="container gallery p-5">
-<h2 class="text-center mb-5">Галерея</h2>
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="static/assets/dist/img/1.jpg" class="d-block w-100" alt="...">
+    <h2 class="text-center mb-5">Галерея</h2>
+
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for image in images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="10000">
+                <img class="gallery-img d-block w-100" src="{{ image.image.url }}" alt="{{ image.title }}">
+            </div>
+            {% endfor %}
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="carousel-item" data-bs-interval="2000">
-      <img src="static/assets/dist/img/2.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="static/assets/dist/img/3.jpg" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
-</div>
+
 
 
 <!-- Раздел Наши адреса -->
@@ -160,7 +130,6 @@
  
 <div class="d-flex justify-content-center mt-3">
 <div class="card" style="width: 50%;">
-  <img src="static/assets/dist/img/diets.webp" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">Позаботься о здоровье уже сейчас</h5>
     <p class="card-text">Хотите похудеть без диет?  Наш бот от нутрициолога поможет!  Индивидуальные планы питания, поддержка и эффективные методики – все в одном месте.</p>
@@ -169,8 +138,8 @@
   <div class="card-body text-center">
     <a href="https://t.me/Bodyexpertabot?start=TG" class="btn btn-outline-dark">Получить в telegram
       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
-<path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path><path fill="#fff" d="M33.95,15l-3.746,19.126c0,0-0.161,0.874-1.245,0.874c-0.576,0-0.873-0.274-0.873-0.274l-8.114-6.733 l-3.97-2.001l-5.095-1.355c0,0-0.907-0.262-0.907-1.012c0-0.625,0.933-0.923,0.933-0.923l21.316-8.468 c-0.001-0.001,0.651-0.235,1.126-0.234C33.667,14,34,14.125,34,14.5C34,14.75,33.95,15,33.95,15z"></path><path fill="#b0bec5" d="M23,30.505l-3.426,3.374c0,0-0.149,0.115-0.348,0.12c-0.069,0.002-0.143-0.009-0.219-0.043 l0.964-5.965L23,30.505z"></path><path fill="#cfd8dc" d="M29.897,18.196c-0.169-0.22-0.481-0.26-0.701-0.093L16,26c0,0,2.106,5.892,2.427,6.912 c0.322,1.021,0.58,1.045,0.58,1.045l0.964-5.965l9.832-9.096C30.023,18.729,30.064,18.416,29.897,18.196z"></path>
-</svg>
+        <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path><path fill="#fff" d="M33.95,15l-3.746,19.126c0,0-0.161,0.874-1.245,0.874c-0.576,0-0.873-0.274-0.873-0.274l-8.114-6.733 l-3.97-2.001l-5.095-1.355c0,0-0.907-0.262-0.907-1.012c0-0.625,0.933-0.923,0.933-0.923l21.316-8.468 c-0.001-0.001,0.651-0.235,1.126-0.234C33.667,14,34,14.125,34,14.5C34,14.75,33.95,15,33.95,15z"></path><path fill="#b0bec5" d="M23,30.505l-3.426,3.374c0,0-0.149,0.115-0.348,0.12c-0.069,0.002-0.143-0.009-0.219-0.043 l0.964-5.965L23,30.505z"></path><path fill="#cfd8dc" d="M29.897,18.196c-0.169-0.22-0.481-0.26-0.701-0.093L16,26c0,0,2.106,5.892,2.427,6.912 c0.322,1.021,0.58,1.045,0.58,1.045l0.964-5.965l9.832-9.096C30.023,18.729,30.064,18.416,29.897,18.196z"></path>
+      </svg>
     </a>
   </div>
 </div>

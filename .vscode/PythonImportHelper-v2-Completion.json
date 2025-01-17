@@ -97,11 +97,11 @@
         "documentation": {}
     },
     {
-        "label": "AppConfig",
-        "importPath": "django.apps",
-        "description": "django.apps",
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
         "isExtraImport": true,
-        "detail": "django.apps",
+        "detail": "django.db",
         "documentation": {}
     },
     {
@@ -110,6 +110,70 @@
         "description": "django.db",
         "isExtraImport": true,
         "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "Gallery",
+        "importPath": "main_page.models",
+        "description": "main_page.models",
+        "isExtraImport": true,
+        "detail": "main_page.models",
+        "documentation": {}
+    },
+    {
+        "label": "Services",
+        "importPath": "main_page.models",
+        "description": "main_page.models",
+        "isExtraImport": true,
+        "detail": "main_page.models",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
         "documentation": {}
     },
     {
@@ -397,12 +461,57 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "main_page.migrations.0001_initial",
+        "description": "main_page.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Gallery',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('title', models.TextField()),",
+        "detail": "main_page.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "main_page.migrations.0002_alter_gallery_description_alter_gallery_image_and_more",
+        "description": "main_page.migrations.0002_alter_gallery_description_alter_gallery_image_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('main_page', '0001_initial'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='gallery',\n            name='description',\n            field=models.TextField(verbose_name='Описание'),\n        ),",
+        "detail": "main_page.migrations.0002_alter_gallery_description_alter_gallery_image_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "main_page.migrations.0003_services",
+        "description": "main_page.migrations.0003_services",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('main_page', '0002_alter_gallery_description_alter_gallery_image_and_more'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Services',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('title', models.TextField(verbose_name='Заголовок')),",
+        "detail": "main_page.migrations.0003_services",
+        "documentation": {}
+    },
+    {
         "label": "MainPageConfig",
         "kind": 6,
         "importPath": "main_page.apps",
         "description": "main_page.apps",
         "peekOfCode": "class MainPageConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'main_page'",
         "detail": "main_page.apps",
+        "documentation": {}
+    },
+    {
+        "label": "Gallery",
+        "kind": 6,
+        "importPath": "main_page.models",
+        "description": "main_page.models",
+        "peekOfCode": "class Gallery(models.Model):\n    title = models.TextField(verbose_name='Заголовок')\n    image = models.ImageField(verbose_name='Изображение')\n    description = models.TextField(verbose_name='Описание')\n    def __str__(self):\n        return self.title\n    class Meta:\n        db_table = 'Галерея'\nclass Services(models.Model):\n    title = models.TextField(verbose_name='Заголовок')",
+        "detail": "main_page.models",
+        "documentation": {}
+    },
+    {
+        "label": "Services",
+        "kind": 6,
+        "importPath": "main_page.models",
+        "description": "main_page.models",
+        "peekOfCode": "class Services(models.Model):\n    title = models.TextField(verbose_name='Заголовок')\n    image = models.ImageField(verbose_name='Изображение')\n    description = models.TextField(verbose_name='Описание')\n    def __str__(self):\n        return self.title\n    class Meta:\n        db_table = 'Сервис'",
+        "detail": "main_page.models",
         "documentation": {}
     },
     {
@@ -428,7 +537,7 @@
         "kind": 2,
         "importPath": "main_page.views",
         "description": "main_page.views",
-        "peekOfCode": "def main_page(request):\n    context = {\n        \"Content\": 'content'\n    }\n    return render(request, \"main_page/main_page.html\", context)",
+        "peekOfCode": "def main_page(request):\n    images = Gallery.objects.all()\n    services = Services.objects.all()\n    context = {\n        \"images\": images,\n        \"services\": services\n    }\n    return render(request, \"main_page/main_page.html\", context)",
         "detail": "main_page.views",
         "documentation": {}
     },

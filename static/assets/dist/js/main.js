@@ -40,3 +40,32 @@ window.addEventListener('scroll', () => {
   // Применяем масштаб к изображению
   heroImage.style.transform = `scale(${scale})`;
 });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    let navLinks = document.querySelectorAll(".nav-link"); // Получаем все ссылки в меню
+    let navbarCollapse = document.getElementById("navbarNav"); // Получаем меню
+
+    navLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        let targetId = this.getAttribute("href").substring(1); // Получаем ID секции без #
+        let targetElement = document.getElementById(targetId); // Находим элемент
+
+        if (targetElement) {
+          event.preventDefault(); // Останавливаем стандартный переход
+
+          // Плавный скролл с учетом фиксированного меню (высота ~70px)
+          window.scrollTo({
+            top: targetElement.offsetTop - 70,
+            behavior: "smooth"
+          });
+
+          // Закрытие бургер-меню после клика
+          if (navbarCollapse.classList.contains("show")) {
+            new bootstrap.Collapse(navbarCollapse).hide();
+          }
+        }
+      });
+    });
+  });
+
